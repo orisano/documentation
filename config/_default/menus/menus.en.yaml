@@ -2220,6 +2220,18 @@ api_v1:
     parent: AWS Integration
     url: '#list-namespace-rules'
     generated: true
+  - name: Delete a tag filtering entry
+    parent: AWS Integration
+    url: '#delete-a-tag-filtering-entry'
+    generated: true
+  - name: Get all AWS tag filters
+    parent: AWS Integration
+    url: '#get-all-aws-tag-filters'
+    generated: true
+  - name: Set an AWS tag filter
+    parent: AWS Integration
+    url: '#set-an-aws-tag-filter'
+    generated: true
   - name: Generate a new external ID
     parent: AWS Integration
     url: '#generate-a-new-external-id'
