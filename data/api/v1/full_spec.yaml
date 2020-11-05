@@ -617,10 +617,12 @@ components:
         compare_to:
           $ref: '#/components/schemas/WidgetCompareTo'
         event_query:
-          $ref: '#/components/schemas/EventQueryDefinition'
+          $ref: '#/components/schemas/LogQueryDefinition'
         increase_good:
           description: Whether to show increase as good.
           type: boolean
+        legacy_event_query:
+          $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
         network_query:
@@ -1063,6 +1065,8 @@ components:
         apm_query:
           $ref: '#/components/schemas/LogQueryDefinition'
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -2050,6 +2054,8 @@ components:
         apm_query:
           $ref: '#/components/schemas/LogQueryDefinition'
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -2193,6 +2199,8 @@ components:
         apm_query:
           $ref: '#/components/schemas/LogQueryDefinition'
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -5189,6 +5197,8 @@ components:
             $ref: '#/components/schemas/WidgetConditionalFormat'
           type: array
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -5683,6 +5693,8 @@ components:
         apm_query:
           $ref: '#/components/schemas/LogQueryDefinition'
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -7939,6 +7951,8 @@ components:
             $ref: '#/components/schemas/WidgetConditionalFormat'
           type: array
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         limit:
           description: For metric queries, the number of lines to show in the table.
@@ -8064,6 +8078,8 @@ components:
         display_type:
           $ref: '#/components/schemas/WidgetDisplayType'
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
@@ -8158,6 +8174,8 @@ components:
           minItems: 1
           type: array
         event_query:
+          $ref: '#/components/schemas/LogQueryDefinition'
+        legacy_event_query:
           $ref: '#/components/schemas/EventQueryDefinition'
         log_query:
           $ref: '#/components/schemas/LogQueryDefinition'
