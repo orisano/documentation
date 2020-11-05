@@ -562,6 +562,10 @@
     "summary": "Upload IdP metadata",
     "request_description": ""
   },
+  "GetAllProcesses": {
+    "description": "Get all processes for your organization.",
+    "summary": "Get all processes"
+  },
   "QueryMetrics": {
     "description": "Query timeseries points.",
     "summary": "Query timeseries points"

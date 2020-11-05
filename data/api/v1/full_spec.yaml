@@ -1844,6 +1844,30 @@ components:
       items:
         $ref: '#/components/schemas/GCPAccount'
       type: array
+    GetAllProcessesMeta:
+      description: Response metadata object.
+      properties:
+        page[next]:
+          description: String to query the next page of results.
+          type: string
+        page[size]:
+          description: Number of results returned.
+          format: int32
+          maximum: 10000
+          minimum: 1
+          type: integer
+      type: object
+    GetAllProcessesResponse:
+      description: List of process summaries.
+      properties:
+        data:
+          description: Array of process summary objects.
+          items:
+            $ref: '#/components/schemas/ProcessSummaryObject'
+          type: array
+        meta:
+          $ref: '#/components/schemas/GetAllProcessesMeta'
+      type: object
     GraphSnapshot:
       description: Object representing a graph snapshot.
       properties:
@@ -5120,6 +5144,59 @@ components:
       required:
       - metric
       type: object
+    ProcessSummaryAttributes:
+      description: Attributes for a process summary.
+      properties:
+        cmdline:
+          description: Process command line.
+          type: string
+        host:
+          description: Host running the process.
+          type: string
+        pid:
+          description: Process ID.
+          format: int64
+          type: integer
+        ppid:
+          description: Parent process ID.
+          format: int64
+          type: integer
+        start:
+          description: Time the process was started.
+          type: string
+        tags:
+          description: List of tags associated with the process.
+          items:
+            description: A tag associated with the process.
+            type: string
+          type: array
+        timestamp:
+          description: Time the process was seen.
+          type: string
+        user:
+          description: Process owner.
+          type: string
+      type: object
+    ProcessSummaryObject:
+      description: Process summary object.
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ProcessSummaryAttributes'
+        id:
+          description: Process ID.
+          type: string
+        type:
+          $ref: '#/components/schemas/ProcessSummaryType'
+      type: object
+    ProcessSummaryType:
+      default: process
+      description: Type of process summary.
+      enum:
+      - process
+      example: process
+      type: string
+      x-enum-varnames:
+      - PROCESS
     QueryValueWidgetDefinition:
       description: Query values display the current value of a given metric, APM,
         or log query.
@@ -15003,6 +15080,90 @@ paths:
       tags:
       - Organizations
       x-codegen-request-body-name: body
+  /api/v1/processes:
+    get:
+      description: Get all processes for your organization.
+      operationId: GetAllProcesses
+      parameters:
+      - description: String to search processes by.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Comma-separated list of tags to filter processes by.
+        example: account:prod,user:admin
+        in: query
+        name: tags
+        required: false
+        schema:
+          type: string
+      - description: 'Unix timestamp (number of seconds since epoch) of the start
+          of the query window.
+
+          If not provided, the start of the query window will be 15 minutes before
+          the `to` timestamp. If neither
+
+          `from` nor `to` are provided, the query window will be `[now - 15m, now]`.'
+        in: query
+        name: from
+        required: false
+        schema:
+          format: int64
+          type: integer
+      - description: 'Unix timestamp (number of seconds since epoch) of the end of
+          the query window.
+
+          If not provided, the end of the query window will be 15 minutes after the
+          `from` timestamp. If neither
+
+          `from` nor `to` are provided, the query window will be `[now - 15m, now]`.'
+        in: query
+        name: to
+        required: false
+        schema:
+          format: int64
+          type: integer
+      - description: Maximum number of results returned.
+        in: query
+        name: page[size]
+        required: false
+        schema:
+          default: 1000
+          format: int32
+          maximum: 10000
+          minimum: 1
+          type: integer
+      - description: 'String to query the next page of results.
+
+          This key is provided with each valid response from the API.'
+        in: query
+        name: page[next]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllProcessesResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+          description: Bad Request
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIErrorResponse'
+          description: Authentication Error
+      summary: Get all processes
+      tags:
+      - Processes
   /api/v1/query:
     get:
       description: Query timeseries points.
@@ -18099,6 +18260,8 @@ tags:
   externalDocs:
     url: https://docs.datadoghq.com/api/?lang=bash#integration-pagerduty
   name: PagerDuty Integration
+- description: The processes API allows you to query processes data for your organization.
+  name: Processes
 - description: '[Check API version 2](/api/v2/roles/).'
   name: Roles
 - description: This endpoint is outdated. Use the [new Dashboard endpoint](https://docs.datadoghq.com/api/#dashboards)
